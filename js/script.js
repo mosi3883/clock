@@ -2,10 +2,11 @@ class Time {
   #hourEl = document.querySelector(".hour");
   #minEl = document.querySelector(".min");
   #secEl = document.querySelector(".sec");
-  constructor(hour, min, sec) {
-    this.hour = hour;
-    this.min = min;
+  #fakeHour;
+  constructor(hour = 0, min = 0, sec = 0) {
     this.sec = sec;
+    this.min = min;
+    this.hour = hour;
   }
 
   set hour(h) {
@@ -24,9 +25,12 @@ class Time {
   set min(m) {
     if (m < 60) {
       this._min = m;
+      if (this.min % 12 == 0) {
+        this.updateHourUI();
+      }
     } else {
-      this.hour += Number.parseInt(m / 60);
       this._min = m % 60;
+      this.hour += Number.parseInt(m / 60);
     }
     this.updateMinUI();
   }
@@ -54,15 +58,29 @@ class Time {
   }
 
   updateSecUI() {
+    document.querySelector(".sec-box").textContent = (this.sec + "").padStart(
+      2,
+      "0"
+    );
     this.#secEl.style.transform = `rotate(${this.sec * 6}deg)`;
   }
 
   updateMinUI() {
+    document.querySelector(".min-box").textContent = (this.min + "").padStart(
+      2,
+      "0"
+    );
     this.#minEl.style.transform = `rotate(${this.min * 6}deg)`;
   }
 
   updateHourUI() {
-    this.#hourEl.style.transform = `rotate(${this.hour * 30}deg)`;
+    document.querySelector(".hour-box").textContent = (this.hour + "").padStart(
+      2,
+      "0"
+    );
+    this.#fakeHour = (this.hour % 12) * 5 + Number.parseInt(this.min / 12);
+
+    this.#hourEl.style.transform = `rotate(${this.#fakeHour * 6}deg)`;
   }
 }
 const time = new Date();
