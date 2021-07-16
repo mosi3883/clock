@@ -50,7 +50,7 @@ class Time {
   }
 
   addSec(s) {
-    this.sec += 1;
+    this.sec += s;
   }
 
   updateSecUI() {
@@ -74,5 +74,4 @@ const clock = new Time(hour, min, sec);
 
 setInterval(function () {
   clock.addSec(1);
-  console.log("run");
 }, 1000);

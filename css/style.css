@@ -54,6 +54,7 @@ body {
   transform-origin: 50% 100%;
   border-top-left-radius: 10rem;
   border-top-right-radius: 10rem;
+  transition: all 0.8s;
 }
 
 .circle {
